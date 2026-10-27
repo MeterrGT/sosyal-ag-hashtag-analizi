@@ -1,50 +1,65 @@
-# Sosyal Ağ Analizi — başlangıç paketi
+# Sosyal Ağ Analizi — Bluesky Hashtag Ağı
 
-Bu başlangıç paketi Bluesky Jetstream'den Türkçe gönderilerdeki hashtag'leri toplamak ve ilk hashtag eş-oluşum ağını kurmak içindir.
+**Öğrenci:** Metehan Gezer  
+**Öğrenci No:** 2516016026  
+**Program:** Büyük Veri Analistliği  
+**Dönem:** 2026-2027 Güz
 
-## Gizlilik ve veri tanımı
+## 1. Projenin Amacı
 
-- Ağ düğümü: hashtag.
-- Kenar: iki hashtag'in aynı gönderide birlikte görünmesi.
-- Kenar ağırlığı: birlikte geçme sayısı.
-- Kaydedilen satır: UTC zaman damgası + hashtag listesi.
-- Ham gönderi metni ve kullanıcı kimliği CSV'ye yazılmaz. Dil tespiti ve hashtag çıkarımı için metin yalnızca bellekte işlenir.
+Bu projede Bluesky sosyal medya akışındaki Türkçe gönderilerden hashtag ağı oluşturulmaktadır.
 
-## Kurulum (Anaconda Prompt / terminal)
+Araştırma sorusu:
+- Gündem toplulukları saatler içinde ne kadar kararlıdır?
+- Hangi hashtag'ler farklı gündem topluluklarını birbirine bağlamaktadır?
+
+## 2. Veri ve Ağ Modeli
+
+- **Veri kaynağı:** Bluesky Jetstream arşivi
+- **Zaman aralığı:** 24–26 Ekim 2026, 48 saat
+- **Düğüm:** Hashtag
+- **Kenar:** Aynı gönderide birlikte geçen hashtag'ler
+- **Gizlilik:** Gönderi metinleri ve kullanıcı kimlikleri saklanmamaktadır.
+
+## 3. Veri Toplama
+
+Arşivden elde edilen veriler zaman aralığı ve dil koşullarına göre filtrelenmiştir.
+
+- İşlenen olay: 8.185.391
+- İncelenen 48 saatlik aralıktaki gönderiler: 7.476.367
+- Türkçe gönderiler: 38.474
+- Hashtag içeren kaydedilmiş gönderiler: 7.658
+
+## 4. İlk Ağ Analizi Sonuçları
+
+| Ölçüm | Sonuç |
+|---|---:|
+| Düğüm sayısı | 7.092 |
+| Kenar sayısı | 37.206 |
+| Ağ yoğunluğu | 0,00148 |
+| Bağlantılı bileşen sayısı | 538 |
+| En büyük bileşendeki düğüm sayısı | 5.731 |
+| En büyük bileşende ortalama en kısa yol | 3,355 |
+| En büyük bileşenin çapı | 14 |
+| Ortalama kümelenme katsayısı | 0,803 |
+
+En kısa yol ve çap ölçümleri yalnızca en büyük bağlantılı bileşen üzerinden hesaplanmıştır.
+
+## 5. Dosyalar
+
+- `collect_hashtags.py`: Canlı akıştan hashtag toplama
+- `collect_historical_48h.mjs`: Geçmiş 48 saatlik arşivi toplama
+- `analyze_network.py`: Ağ oluşturma ve temel analiz
+- `data/`: Toplanan hashtag verileri
+- `outputs/edges.csv`: Kenar listesi
+- `outputs/hashtags.graphml`: Ağın GraphML dosyası
+- `outputs/basic_metrics.json`: Temel ağ ölçüleri
+- `outputs/degree_distribution.png`: Derece dağılım grafiği
+- `outputs/top_degree.csv`: En yüksek dereceye sahip hashtag'ler
+
+## 6. Kurulum ve Çalıştırma
+
+Python bağımlılıklarını yüklemek için:
 
 ```bash
-cd sosyal_ag_baslangic
 python -m pip install -r requirements.txt
-```
-
-## Veri toplama
-
-Varsayılan süre 48 saattir:
-
-```bash
-python collect_hashtags.py
-```
-
-Daha kısa bir test için:
-
-```bash
-# Windows PowerShell
-$env:COLLECT_HOURS="0.05"
-python collect_hashtags.py
-```
-
-Bilgisayar uykuya geçerse veya internet kesilirse veri akışı kaçabilir. Program bağlantı kopunca yeniden bağlanır; ancak bağlantı yokken kaçan gönderileri bu basit canlı akış toplayıcısı geriye dönük tamamlamaz. Gerçek çalıştırma süresini ve sınırlılıkları raporda dürüstçe belirtin.
-
-## İlk ağ ve ölçüler
-
-CSV'de veri biriktikten sonra:
-
-```bash
-python analyze_network.py
-```
-
-`outputs/` içine kenar listesi CSV, GraphML, temel metrik JSON'u, derece tablosu ve log-log derece grafiği yazar. Henüz Louvain/Leiden karşılaştırması, 100 null model, üç saatlik pencereler, NMI/ARI veya betweenness analizi üretmez; bunlar sonraki aşamalardır.
-
-## Önemli
-
-Bu kod bir başlangıçtır, tamamlanmış ödev değildir. Jetstream bağlantısını, toplanan satırları ve ağ boyutunu kontrol edin. Ödev kartındaki veri toplama koşullarını ve tüm ölçümlerin açıklamasını raporda belirtin. Yapay zekâ yardımı kullanıldığını README'de beyan edin ve derste açıklayamadığınız sonuçları teslim etmeyin.
