@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "@atproto/lex": "^0.3.14",
+    "@bsky/jetstream": "^1.0.0",
+    "franc-min": "^6.2.0"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "input_posts_with_hashtags": 7658,
+  "posts_with_two_or_more_unique_hashtags": 6161,
+  "nodes": 7092,
+  "edges": 37206,
+  "density": 0.0014796764612610394,
+  "connected_components": 538,
+  "largest_component_nodes": 5731,
+  "average_shortest_path_largest_component": 3.354560345544257,
+  "diameter_largest_component": 14,
+  "average_clustering_coefficient": 0.8032495479280518,
+  "degree_assortativity": -0.1357551298259535,
+  "interpretation_note": "Paths and diameter are calculated on the largest connected component; justify this in the report."
+}
