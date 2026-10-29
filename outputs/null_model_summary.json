@@ -1,0 +1,25 @@
+{
+  "clustering": {
+    "observed": 0.8032495479280518,
+    "null_mean": 0.07359165570492941,
+    "null_sd": 0.001341849152732765,
+    "z_score": 543.7704310779834,
+    "valid_models": 100
+  },
+  "average_path_sampled": {
+    "observed": 3.1251308900523567,
+    "null_mean": 3.168001761547706,
+    "null_sd": 0.07158178958653938,
+    "z_score": -0.598907511854259,
+    "valid_models": 100
+  },
+  "louvain_modularity_unweighted": {
+    "observed": 0.6311814880052758,
+    "null_mean": 0.2603848072729145,
+    "null_sd": 0.0015081578745585649,
+    "z_score": 245.86065357440967,
+    "valid_models": 100
+  },
+  "model_count": 100,
+  "method": "Configuration model using the observed unweighted degree sequence. Model indices are mapped to the original hashtag nodes (7,092 nodes; not duplicated). Self-loops and parallel edges are removed after sampling. Observed and null average-path estimates use 20 sampled sources each; this is an approximate comparison."
+}

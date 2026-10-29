@@ -1,0 +1,5 @@
+﻿field_or_file,meaning,type,personal_data,collection_window_or_source_terms
+timestamp_utc,Gönderinin UTC zaman damgası,ISO-8601 string,No,48 saatlik arşiv penceresi; başlangıç/bitiş rapor kapağı ve final_results_summary.json içinde
+hashtags,Aynı gönderide geçen benzersiz hashtag listesi; | ile ayrılır,Text list,No,Bluesky Jetstream public archive; hizmet koşulları uygulanır; bireysel gönderi lisansı iddia edilmez
+"outputs/edges.csv: source,target",Birlikte aynı gönderide geçen hashtag düğümleri,Hashtag strings,No,Türetilmiş analiz çıktısı; ham gönderi metni ve hesap kimliği içermez
+outputs/edges.csv: weight,Bu çiftin birlikte geçtiği gönderi sayısı,Integer,No,Eş-oluşum sayısı; ağırlıklı ve yönsüz kenar

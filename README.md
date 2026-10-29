@@ -1,65 +1,87 @@
-# Sosyal Ağ Analizi — Bluesky Hashtag Ağı
+# Sosyal Medyada Hashtag Ağı — Final Projesi
 
-**Öğrenci:** Metehan Gezer  
-**Öğrenci No:** 2516016026  
-**Program:** Büyük Veri Analistliği  
-**Dönem:** 2026-2027 Güz
+**Öğrenci:** Metehan Gezer · **Öğrenci no:** 2516016026  
+**Program:** Büyük Veri Analistliği · **Ders:** Sosyal Ağ Analizi
 
-## 1. Projenin Amacı
+## Araştırma sorusu
 
-Bu projede Bluesky sosyal medya akışındaki Türkçe gönderilerden hashtag ağı oluşturulmaktadır.
+Gündem toplulukları saatler içinde ne kadar kararlıdır? Hangi hashtag'ler farklı gündem topluluklarını birbirine bağlamaktadır?
 
-Araştırma sorusu:
-- Gündem toplulukları saatler içinde ne kadar kararlıdır?
-- Hangi hashtag'ler farklı gündem topluluklarını birbirine bağlamaktadır?
+## Veri ve ağ modeli
 
-## 2. Veri ve Ağ Modeli
+- **Kaynak:** Bluesky Jetstream v2 arşivi.
+- **Zaman aralığı:** 24 Ekim 2026 22:05:33 UTC – 26 Ekim 2026 22:05:22 UTC (yaklaşık 48 saat).
+- **Kaydedilen gönderi:** 7.658 Türkçe hashtag'li gönderi.
+- **Gizlilik:** CSV'de yalnızca UTC zaman damgası ve hashtag listesi vardır; ham gönderi metni ve kullanıcı kimliği kaydedilmez.
+- **Düğüm:** normalize edilmiş hashtag.
+- **Kenar:** aynı gönderide birlikte görülen iki farklı hashtag.
+- **Kenar ağırlığı:** hashtag çiftinin birlikte görüldüğü gönderi sayısı; ağ yönsüzdür.
 
-- **Veri kaynağı:** Bluesky Jetstream arşivi
-- **Zaman aralığı:** 24–26 Ekim 2026, 48 saat
-- **Düğüm:** Hashtag
-- **Kenar:** Aynı gönderide birlikte geçen hashtag'ler
-- **Gizlilik:** Gönderi metinleri ve kullanıcı kimlikleri saklanmamaktadır.
-
-## 3. Veri Toplama
-
-Arşivden elde edilen veriler zaman aralığı ve dil koşullarına göre filtrelenmiştir.
-
-- İşlenen olay: 8.185.391
-- İncelenen 48 saatlik aralıktaki gönderiler: 7.476.367
-- Türkçe gönderiler: 38.474
-- Hashtag içeren kaydedilmiş gönderiler: 7.658
-
-## 4. İlk Ağ Analizi Sonuçları
+## Temel bulgular
 
 | Ölçüm | Sonuç |
 |---|---:|
-| Düğüm sayısı | 7.092 |
-| Kenar sayısı | 37.206 |
-| Ağ yoğunluğu | 0,00148 |
-| Bağlantılı bileşen sayısı | 538 |
-| En büyük bileşendeki düğüm sayısı | 5.731 |
-| En büyük bileşende ortalama en kısa yol | 3,355 |
-| En büyük bileşenin çapı | 14 |
-| Ortalama kümelenme katsayısı | 0,803 |
+| Düğüm | 7.092 |
+| Kenar | 37.206 |
+| Yoğunluk | 0,001480 |
+| Bağlı bileşen | 538 |
+| En büyük bileşen | 5.731 düğüm |
+| Ortalama kümelenme katsayısı | 0,8032 |
+| Derece benzeşimi | -0,1358 |
+| En büyük bileşende 100 kaynakla örneklemeli ortalama yol | 3,380 |
+| Örneklem çapı alt sınırı | 11 |
 
-En kısa yol ve çap ölçümleri yalnızca en büyük bağlantılı bileşen üzerinden hesaplanmıştır.
+### Merkeziyet ve topluluklar
 
-## 5. Dosyalar
+En yüksek dereceye sahip hashtag'ler `#türkiye` (1.587), `#gündem` (1.219) ve `#haber` (1.155) olmuştur. Bu ölçü bir hashtag'in kaç farklı komşu hashtag'le bağlantılı olduğunu gösterir; gönderi sayısı veya kullanıcı sayısıyla aynı şey değildir.
 
-- `collect_hashtags.py`: Canlı akıştan hashtag toplama
-- `collect_historical_48h.mjs`: Geçmiş 48 saatlik arşivi toplama
-- `analyze_network.py`: Ağ oluşturma ve temel analiz
-- `data/`: Toplanan hashtag verileri
-- `outputs/edges.csv`: Kenar listesi
-- `outputs/hashtags.graphml`: Ağın GraphML dosyası
-- `outputs/basic_metrics.json`: Temel ağ ölçüleri
-- `outputs/degree_distribution.png`: Derece dağılım grafiği
-- `outputs/top_degree.csv`: En yüksek dereceye sahip hashtag'ler
+- **Louvain:** 589 topluluk; 10 tohumdaki ortalama çiftli NMI 0,8763; ortalama ağırlıklı modülerlik 0,5928.
+- **Leiden:** 583 topluluk; 10 tohumdaki ortalama çiftli NMI 0,8889; ortalama ağırlıklı modülerlik 0,5952.
+- **İçeriğe göre adlandırılan en büyük topluluklar:** Türkiye gündemi ve siyaset; dış politika ve güncel haber akışı; hukuk, protesto ve yerel gündem; uluslararası haber ve dünya siyaseti; Türkiye medyası ve futbol gündemi. Bu etiketler toplulukların en sık görülen hashtag'lerini özetler; her düğümün tek bir konuya ait olduğunu garanti etmez.
 
-## 6. Kurulum ve Çalıştırma
+### Zamansal analiz
 
-Python bağımlılıklarını yüklemek için:
+48 saat 3 saat uzunluğunda ve 1 saat adımlı **örtüşen kayan pencerelere** ayrılmıştır: 46 pencere ve 45 ardışık-pencere NMI karşılaştırması. Ortalama NMI 0,8447'dir (min. 0,6728; maks. 0,9673). Pencereler iki saat örtüştüğü için yüksek NMI değerleri bu örtüşme bağlamında yorumlanmalıdır.
 
-```bash
-python -m pip install -r requirements.txt
+### Null model ve derece dağılımı
+
+100 configuration-model ağıyla karşılaştırmada gözlenen kümelenme 0,8032, null ortalaması 0,0736 (z=543,770); örneklemeli ortalama yol 3,1251, null ortalaması 3,1680 (z=-0,599); ağırlıksız Louvain modülerliği 0,6312, null ortalaması 0,2604 (z=245,861) bulunmuştur. Null grafiği düğümleri özgün hashtag düğümleriyle bire bir eşleştirilmiştir; self-loop ve çoklu kenarlar sadeleştirmede kaldırıldığından model kenar sayısı gözlenen ağla aynı olmak zorunda değildir. Yol uzunluğu null karşılaştırması, gözlenen ve null ağlarda 20 kaynak düğümle örneklenmiştir.
+
+Derece dağılımı için power-law modeli ve alternatifleri karşılaştırılmıştır: alpha=2,311, xmin=33; power-law ile exponential karşılaştırmasında R=84,984 ve p=2,19e-5; power-law ile lognormal karşılaştırmasında R=-0,007 ve p=0,929. Sonuç, power-law'ın exponential alternatife göre daha iyi olduğunu destekler; lognormal ile karşılaştırma ise aralarındaki fark için belirgin kanıt vermez. Bu nedenle derece dağılımı tek başına kesin biçimde “kuvvet yasasıdır” diye yorumlanmamalıdır.
+
+## Dosyalar
+
+- `data/posts_hashtags_48h.csv`: final analizinde kullanılan veri (UTC zaman damgası ve hashtag listesi).
+- `collect_historical_48h.mjs`: Jetstream arşivinden geçmiş 48 saatlik veriyi toplama kodu.
+- `collect_hashtags.py`: canlı akıştan hashtag toplama kodu.
+- `finalize_project.py`: tekrarlanabilir final analiz iş akışı.
+- `render_final_deliverables.py`: kaydedilmiş analiz çıktılarından rapor, poster ve sunumu yeniden üretme.
+- `sosyal_ag_analizi_final.ipynb`: yöntemi ve çalıştırma adımlarını gösteren Jupyter defteri.
+- `outputs/`: kenar listesi, GraphML, merkeziyet tabloları, Louvain/Leiden bölümleri, NMI, null model ve grafikler.
+- `deliverables/`: 8 sayfalık rapor PDF, A3 poster PDF, 10 slaytlık PDF/PPTX ve etkileşimli ağ HTML'i.
+
+## Yeniden üretilebilirlik
+
+Windows/Anaconda ortamında Python 3.13 kullanılması önerilir:
+
+```cmd
+conda activate hashtag-final
+python -m pip install -r requirements-final.txt
+python finalize_project.py --null-models 100 --seeds 10
+```
+
+Kaydedilmiş analiz çıktılarından yalnızca rapor/poster/sunumu yeniden üretmek için:
+
+```cmd
+python render_final_deliverables.py
+```
+
+Etkileşimli HTML, `vis-network` kütüphanesini CDN'den yükler ve görüntülemek için internet bağlantısı gerektirir.
+
+## Sınırlılıklar ve etik
+
+Bluesky örneklemi tüm sosyal medya kullanıcılarını veya Türkiye nüfusunu temsil etmez. Türkçe dil filtresi hata içerebilir. Aynı gönderide hashtag'lerin birlikte geçmesi kullanıcı etkisini veya nedenselliği kanıtlamaz. Merkeziyet ve bazı yol ölçüleri büyük ağ nedeniyle tekrarlanabilir örnekleme ile yaklaşık hesaplanmıştır. Yalnızca açık veriye erişilmiş; ham gönderi metinleri ve hesap kimlikleri kalıcı olarak saklanmamıştır.
+
+## Yapay zekâ beyanı
+
+Kod geliştirme, hata ayıklama ve rapor/sunum dilinin düzenlenmesinde yapay zekâ araçlarından destek alınmıştır. Analiz sonuçları, yöntemler ve sınırlılıklar bu depodaki çıktılarla kontrol edilebilir.

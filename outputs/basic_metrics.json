@@ -6,9 +6,11 @@
   "density": 0.0014796764612610394,
   "connected_components": 538,
   "largest_component_nodes": 5731,
-  "average_shortest_path_largest_component": 3.354560345544257,
-  "diameter_largest_component": 14,
+  "average_shortest_path_largest_component": 3.380373472949389,
+  "diameter_largest_component": 11,
+  "path_metric_method": "Deterministic sample of 100 source nodes in the largest connected component.",
+  "diameter_note": "Sampled maximum eccentricity is a lower bound on the exact diameter, not a guarantee of the exact diameter.",
   "average_clustering_coefficient": 0.8032495479280518,
   "degree_assortativity": -0.1357551298259535,
-  "interpretation_note": "Paths and diameter are calculated on the largest connected component; justify this in the report."
+  "interpretation_note": "Path metrics use reproducible source-node sampling on the largest connected component, as allowed for large networks."
 }

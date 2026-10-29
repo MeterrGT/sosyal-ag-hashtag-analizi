@@ -1,0 +1,20 @@
+{
+  "Louvain": {
+    "status": "ok",
+    "runs": 10,
+    "mean_pairwise_nmi": 0.8763319602094108,
+    "min_pairwise_nmi": 0.8405737224973555,
+    "max_pairwise_nmi": 0.9294726862773619,
+    "mean_modularity": 0.5928314023758474,
+    "std_modularity": 0.0013900274306777986
+  },
+  "Leiden": {
+    "status": "ok",
+    "runs": 10,
+    "mean_pairwise_nmi": 0.8889031308409193,
+    "min_pairwise_nmi": 0.8632070305617878,
+    "max_pairwise_nmi": 0.9350567398904944,
+    "mean_modularity": 0.595202768987807,
+    "std_modularity": 0.0013248573811254322
+  }
+}

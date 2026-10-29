@@ -1,0 +1,12 @@
+{
+  "n_nonzero_degrees": 6803,
+  "package": "powerlaw",
+  "status": "ok",
+  "alpha": 2.311168300467615,
+  "xmin": 33.0,
+  "power_law_vs_exponential_R": 84.98401921589456,
+  "power_law_vs_exponential_p": 2.1942159506060037e-05,
+  "power_law_vs_lognormal_R": -0.007433924662587188,
+  "power_law_vs_lognormal_p": 0.9288339262342604,
+  "interpretation": "R>0 supports the power law relative to the alternative; R<0 supports the alternative. p-values indicate strength of evidence, not model truth."
+}
